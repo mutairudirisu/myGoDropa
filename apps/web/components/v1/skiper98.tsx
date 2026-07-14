@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, { createContext, useContext, useState, ReactNode, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 
 interface VtooltipRootProps {
@@ -27,6 +27,7 @@ interface VtooltipItemProps {
 const VtooltipItem = ({ index, trigger, content }: VtooltipItemProps) => {
   const { side } = useContext(VtooltipContext);
   const [isVisible, setIsVisible] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const positionClass =
     side === "left"
@@ -37,10 +38,31 @@ const VtooltipItem = ({ index, trigger, content }: VtooltipItemProps) => {
       ? "bottom-full mb-2 left-1/2 -translate-x-1/2"
       : "top-full mt-2 left-1/2 -translate-x-1/2";
 
+  // Close tooltip when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
+      ) {
+        setIsVisible(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div
+      ref={containerRef}
       onMouseEnter={() => setIsVisible(true)}
       onMouseLeave={() => setIsVisible(false)}
+      onTouchStart={() => setIsVisible(!isVisible)}
       className="relative"
     >
       {trigger}

@@ -87,18 +87,25 @@ const ReviewCard = ({ review }: { review: (typeof reviews)[0] }) => (
 
 export default function Testimonials() {
   const duplicatedReviews = [...reviews, ...reviews];
-  const [isDesktop, setIsDesktop] = useState(true);
+  const [marqueeDuration, setMarqueeDuration] = useState(30);
 
   useEffect(() => {
     const checkScreenSize = () => {
-      setIsDesktop(window.innerWidth >= 768);
+      const width = window.innerWidth;
+      if (width < 768) {
+        setMarqueeDuration(16); // Mobile
+      } else if (width < 1024) {
+        setMarqueeDuration(22); // Tablet
+      } else {
+        setMarqueeDuration(30); // Desktop
+      }
     };
     checkScreenSize();
     window.addEventListener("resize", checkScreenSize);
     return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
 
-  const marqueeDuration = isDesktop ? 40 : 30;
+  const isDesktop = marqueeDuration === 30;
 
   return (
     <section className="relative bg-slate-50 dark:bg-black py-16 md:py-24 overflow-hidden transition-colors duration-300">

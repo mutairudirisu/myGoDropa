@@ -91,16 +91,16 @@ export default function FinalBrand() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-[16vw] sm:text-[14vw] md:text-[12vw] lg:text-[10vw] font-black text-black tracking-tighter mb-4 md:mb-8"
+          className="text-[17vw] sm:text-[14vw] md:text-[12vw] lg:text-[15vw] font-black text-white/20 tracking-tighter mb-4 md:mb-8"
         >
-          GODROPA
+          GoDROPA
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-[4vw] sm:text-[3vw] md:text-[2.5vw] lg:text-4xl font-semibold text-black"
+          className="text-[4vw] sm:text-[3vw] md:text-[2.5vw] lg:text-4xl font-semibold text-white/70"
         >
           Delivering Africa Forward
         </motion.p>

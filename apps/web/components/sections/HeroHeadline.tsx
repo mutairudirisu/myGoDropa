@@ -30,11 +30,11 @@ export default function HeroHeadline() {
 
       {/* Headline */}
       <h1 className="leading-[0.9]">
-        <span className="block text-3xl md:text-5xl lg:text-[4em] font-black tracking-tight text-gray-900 dark:text-white font-[var(--font-brother-signature)]">
+        <span className="block text-5xl md:text-7xl lg:text-[6em] font-black tracking-tight text-gray-900 dark:text-white font-[var(--font-brother-signature)]">
           LOGISTICS
         </span>
 
-        <span className="block text-3xl md:text-5xl lg:text-[4rem] font-black tracking-tight text-orange-primary font-[var(--font-brother-signature)]">
+        <span className="block text-4xl md:text-6xl lg:text-[5rem] font-black tracking-tight text-orange-primary font-[var(--font-brother-signature)]">
           <AnimatePresence mode="wait">
             <motion.span
               key={currentWordIndex}
