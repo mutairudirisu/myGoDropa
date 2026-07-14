@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { Playwrite_NZ, Outfit, JetBrains_Mono } from "next/font/google";
+import { Playwrite_NZ, Montserrat, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/contexts/ThemeContext";
 
-const outfit = Outfit({
+const montserrat = Montserrat({
   subsets: ["latin"],
-  variable: "--font-outfit",
+  variable: "--font-montserrat",
 });
 
 const jetBrainsMono = JetBrains_Mono({
@@ -31,7 +31,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${outfit.variable} ${jetBrainsMono.variable} ${brotherSignature.variable} transition-colors duration-300`}>
+      <body className={`${montserrat.variable} ${jetBrainsMono.variable} ${brotherSignature.variable} transition-colors duration-300`}>
         <ThemeProvider>
           {children}
         </ThemeProvider>
