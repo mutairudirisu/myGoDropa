@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 const APP_URL =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3001"
-    : "https://app.godropa.com";
+    : "https://appgodropa.vercel.app";
 
 export default function Navbar() {
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);

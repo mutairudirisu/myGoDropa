@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 const APP_URL =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3001"
-    : "https://app.godropa.com";
+    : "https://appgodropa.vercel.app";
 
 export default function BottomHero() {
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
@@ -40,16 +40,17 @@ export default function BottomHero() {
   }, []);
 
   const handleDownloadClick = async () => {
-    if (deferredPrompt) {
+    if (isInstalled) {
+      window.location.href = APP_URL;
+    } else if (deferredPrompt) {
       deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
       if (outcome === "accepted") {
         setIsInstalled(true);
       }
       setDeferredPrompt(null);
-    } else {
-      window.location.href = APP_URL;
     }
+    // If no deferred prompt, don't redirect—let the user know they can install via browser menu
   };
 
   return (

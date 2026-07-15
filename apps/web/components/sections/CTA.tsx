@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 const APP_URL =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3001"
-    : "https://app.godropa.com";
+    : "https://appgodropa.vercel.app";
 
 export default function CTA() {
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
@@ -49,9 +49,8 @@ export default function CTA() {
         setIsInstalled(true);
       }
       setDeferredPrompt(null);
-    } else {
-      window.location.href = APP_URL;
     }
+    // If no deferred prompt, don't redirect—let the user know they can install via browser menu
   };
 
   return (
