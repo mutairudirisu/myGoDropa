@@ -1,9 +1,8 @@
-"use client";
-
+import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Montserrat, Knewave } from "next/font/google";
-import { useEffect } from "react";
 import "./globals.css";
+import { PWAServiceWorker } from "@/components/PWAServiceWorker";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -21,37 +20,22 @@ const knewave = Knewave({
   variable: "--font-knewave",
 });
 
+export const metadata: Metadata = {
+  title: "GoDropa - PWA",
+  description: "GoDropa mobile PWA",
+  manifest: "/manifest.json",
+  themeColor: "#FF6B00",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  useEffect(() => {
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker
-          .register("/sw.js")
-          .then((registration) => {
-            console.log("SW registered: ", registration);
-          })
-          .catch((registrationError) => {
-            console.log("SW registration failed: ", registrationError);
-          });
-      });
-    }
-  }, []);
-
   return (
     <html lang="en">
-      <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>GoDropa - PWA</title>
-        <meta name="description" content="GoDropa mobile PWA" />
-        <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#FF6B00" />
-      </head>
       <body className={`${montserrat.variable} ${geistMono.variable} ${knewave.variable}`}>
+        <PWAServiceWorker />
         {children}
       </body>
     </html>
