@@ -50,6 +50,13 @@ export default function SuccessScreen({ onNext }: SuccessScreenProps) {
     );
   }, []);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      onNext();
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [onNext]);
+
   return (
     <div className="min-h-screen bg-white flex flex-col items-center justify-center p-6 text-center relative overflow-hidden">
       {confetti}
@@ -74,8 +81,7 @@ export default function SuccessScreen({ onNext }: SuccessScreenProps) {
           onClick={onNext}
           className="w-full py-4 bg-orange-primary text-white rounded-full font-semibold hover:bg-orange-dark transition-colors flex items-center justify-center gap-2"
         >
-          Entering Dashboard...
-          <div className="w-5 h-5 rounded-full border-2 border-white border-t-transparent animate-spin" />
+          Enter Dashboard
         </button>
       </motion.div>
     </div>
