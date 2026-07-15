@@ -41,25 +41,11 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
   }, [currentSlide, x]);
 
   const handleDragEnd = (_: any, info: any) => {
-    const slideIndex = Math.round(-info.offset.x / slideWidth);
+    const slideIndex = Math.round(-(info.offset.x + (info.velocity.x * 0.1)) / slideWidth);
     const newIndex = Math.max(0, Math.min(2, slideIndex));
     setCurrentSlide(newIndex);
     x.set(-newIndex * slideWidth);
-    
-    if (newIndex === 2) {
-      setTimeout(() => onComplete(), 2000);
-    }
   };
-
-  useEffect(() => {
-    let timer: NodeJS.Timeout | null = null;
-    if (currentSlide === 2) {
-      timer = setTimeout(onComplete, 4000);
-    }
-    return () => {
-      if (timer) clearTimeout(timer);
-    };
-  }, [currentSlide, onComplete]);
 
   return (
     <main className="relative min-h-[100svh] overflow-hidden">
@@ -74,8 +60,8 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
         <Image
           src="/images/logos-city.png"
           alt=""
-          width={1200}
-          height={250}
+          width={2200}
+          height={350}
           className="w-full object-cover blur-[0.2px]"
           priority
         />
@@ -86,6 +72,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
         drag="x"
         dragConstraints={{ left: -2 * slideWidth, right: 0 }}
         dragElastic={0.2}
+        dragMomentum={false}
         onDragEnd={handleDragEnd}
         style={{ x: springX, width: `${3 * slideWidth}px` }}
         className="relative z-10 flex h-full"
@@ -96,7 +83,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
               <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 0.6, delay: i * 0.2 }}
+                transition={{ duration: 0.6, delay: i * 0.1 }}
               >
                 <Image
                   src="/images/GoDropa-FullLogo-white.png"
@@ -110,7 +97,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
               <motion.h2
                 initial={{ y: 10, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.6, delay: i * 0.2 + 0.2 }}
+                transition={{ duration: 0.6, delay: i * 0.1 + 0.2 }}
                 className="mt-10 text-2xl font-bold text-white text-center"
               >
                 {slide.title}
@@ -119,11 +106,23 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
               <motion.p
                 initial={{ y: 10, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.6, delay: i * 0.2 + 0.4 }}
+                transition={{ duration: 0.6, delay: i * 0.1 + 0.4 }}
                 className="mt-4 text-white/90 text-sm font-medium tracking-wide text-center max-w-xs"
               >
                 {slide.description}
               </motion.p>
+
+              {i === 2 && (
+                <motion.button
+                  initial={{ y: 10, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.6, delay: i * 0.1 + 0.6 }}
+                  onClick={onComplete}
+                  className="mt-8 bg-white text-[#FF6B00] px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors"
+                >
+                  Get Started
+                </motion.button>
+              )}
             </div>
 
             <div className="mb-10" />
