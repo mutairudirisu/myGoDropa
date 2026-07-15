@@ -1,0 +1,16 @@
+{
+  "name": "GoDropa",
+  "short_name": "GoDropa",
+  "description": "Your Professional AI Logistics Platform",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FF6B00",
+  "theme_color": "#FF6B00",
+  "icons": [
+    {
+      "src": "/images/GoDropa-Logo.png",
+      "sizes": "any",
+      "type": "image/png"
+    }
+  ]
+}

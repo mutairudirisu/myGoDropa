@@ -16,6 +16,8 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "GoDropa - PWA",
   description: "GoDropa mobile PWA",
+  manifest: "/manifest.json",
+  themeColor: "#FF6B00",
 };
 
 export default function RootLayout({

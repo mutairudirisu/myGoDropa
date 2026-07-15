@@ -2,6 +2,11 @@
 
 import { motion } from "framer-motion";
 
+const APP_URL =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3001"
+    : "https://app.godropa.com";
+
 export default function CTA() {
   return (
     <section className="py-16 md:py-24 bg-white dark:bg-[#080808] border-t border-gray-200 dark:border-white/10 transition-colors duration-300">
@@ -18,9 +23,12 @@ export default function CTA() {
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
+            onClick={() => {
+              window.location.href = APP_URL;
+            }}
             className="w-full md:w-auto px-8 md:px-10 py-3 bg-[#FF6B00] hover:bg-[#E85D00] text-white font-semibold rounded-2xl text-base md:text-lg transition-colors"
           >
-            Download GoDropa
+            Let's Drop It
           </motion.button>
         </div>
       </div>
