@@ -1,56 +1,25 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { usePWAInstall } from "@/hooks/usePWAInstall";
 
 const APP_URL =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3001"
-    : "https://appgodropa.vercel.app";
+    : "https://app-godropa.vercel.app";
 
 export default function CTA() {
-  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
-  const [isInstalled, setIsInstalled] = useState(false);
-
-  useEffect(() => {
-    const checkInstalled = () => {
-      if (window.matchMedia("(display-mode: standalone)").matches) {
-        setIsInstalled(true);
-      }
-    };
-    checkInstalled();
-
-    const handleBeforeInstallPrompt = (e: Event) => {
-      e.preventDefault();
-      setDeferredPrompt(e);
-    };
-
-    const handleAppInstalled = () => {
-      setIsInstalled(true);
-      setDeferredPrompt(null);
-    };
-
-    window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
-    window.addEventListener("appinstalled", handleAppInstalled);
-
-    return () => {
-      window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
-      window.removeEventListener("appinstalled", handleAppInstalled);
-    };
-  }, []);
+  const { install, isInstallable, isInstalled } = usePWAInstall();
 
   const handleClick = async () => {
     if (isInstalled) {
       window.location.href = APP_URL;
-    } else if (deferredPrompt) {
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      if (outcome === "accepted") {
-        setIsInstalled(true);
-      }
-      setDeferredPrompt(null);
+    } else if (isInstallable) {
+      await install();
+    } else {
+      // If not installable (e.g., iOS), redirect to PWA
+      window.location.href = APP_URL;
     }
-    // If no deferred prompt, don't redirect—let the user know they can install via browser menu
   };
 
   return (

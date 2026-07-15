@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { Montserrat } from "next/font/google";
+import { Montserrat, Knewave } from "next/font/google";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -11,6 +11,12 @@ const montserrat = Montserrat({
 const geistMono = localFont({
   src: "./fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
+});
+
+const knewave = Knewave({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-knewave",
 });
 
 export const metadata: Metadata = {
@@ -27,7 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${montserrat.variable} ${geistMono.variable}`}>
+      <body className={`${montserrat.variable} ${geistMono.variable} ${knewave.variable}`}>
         {children}
       </body>
     </html>

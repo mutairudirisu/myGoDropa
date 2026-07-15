@@ -1,7 +1,7 @@
 "use client";
 
 import { ChevronDown } from "lucide-react";
-import { useEffect, useState } from "react";
+import { usePWAInstall } from "@/hooks/usePWAInstall";
 
 const APP_URL =
   process.env.NODE_ENV === "development"
@@ -9,53 +9,15 @@ const APP_URL =
     : "https://appgodropa.vercel.app";
 
 export default function Navbar() {
-  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
-  const [isInstalled, setIsInstalled] = useState(false);
-
-  useEffect(() => {
-    // Check if app is already installed
-    const checkInstalled = () => {
-      if (window.matchMedia("(display-mode: standalone)").matches) {
-        setIsInstalled(true);
-      }
-    };
-
-    checkInstalled();
-
-    // Listen for beforeinstallprompt event
-    const handleBeforeInstallPrompt = (e: Event) => {
-      e.preventDefault();
-      setDeferredPrompt(e);
-    };
-
-    window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
-
-    // Listen for appinstalled event
-    const handleAppInstalled = () => {
-      setIsInstalled(true);
-      setDeferredPrompt(null);
-    };
-
-    window.addEventListener("appinstalled", handleAppInstalled);
-
-    return () => {
-      window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
-      window.removeEventListener("appinstalled", handleAppInstalled);
-    };
-  }, []);
+  const { install, isInstallable, isInstalled } = usePWAInstall();
 
   const handleClick = async () => {
     if (isInstalled) {
       // If app is installed, open it
       window.location.href = APP_URL;
-    } else if (deferredPrompt) {
+    } else if (isInstallable) {
       // Show install prompt
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      if (outcome === "accepted") {
-        setIsInstalled(true);
-      }
-      setDeferredPrompt(null);
+      await install();
     } else {
       // If no deferred prompt, just redirect to the PWA
       window.location.href = APP_URL;
