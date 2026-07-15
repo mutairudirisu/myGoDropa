@@ -1,6 +1,7 @@
 "use client";
 
 import { ChevronDown } from "lucide-react";
+import { useState } from "react";
 import { usePWAInstall } from "@/hooks/usePWAInstall";
 
 const APP_URL =
@@ -9,7 +10,8 @@ const APP_URL =
     : "https://appgodropa.vercel.app";
 
 export default function Navbar() {
-  const { install, isInstallable, isInstalled } = usePWAInstall();
+  const { install, isInstallable, isInstalled, isIOS } = usePWAInstall();
+  const [showIOSInstructions, setShowIOSInstructions] = useState(false);
 
   const handleClick = async () => {
     if (isInstalled) {
@@ -18,6 +20,8 @@ export default function Navbar() {
     } else if (isInstallable) {
       // Show install prompt
       await install();
+    } else if (isIOS) {
+      setShowIOSInstructions(!showIOSInstructions);
     } else {
       // If no deferred prompt, just redirect to the PWA
       window.location.href = APP_URL;
@@ -51,13 +55,31 @@ export default function Navbar() {
           </nav>
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 relative">
           <button
             onClick={handleClick}
             className="bg-orange-primary text-base text-white px-4 py-2 rounded-full font-semibold hover:scale-105 transition-transform"
           >
             {isInstalled ? "Open App" : "Let's Drop It"}
           </button>
+          {showIOSInstructions && (
+            <div className="absolute top-full right-0 mt-2 w-72 bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-200 dark:border-gray-700 shadow-lg z-50">
+              <p className="text-sm text-gray-700 dark:text-gray-300">
+                To install the app on iOS:
+              </p>
+              <ol className="list-decimal list-inside text-sm text-gray-600 dark:text-gray-400 mt-2 space-y-1">
+                <li>Open <a href={APP_URL} target="_blank" rel="noopener noreferrer" className="text-orange-primary font-medium">{APP_URL}</a> in Safari</li>
+                <li>Tap the share button <span className="inline-block align-middle">⎋</span></li>
+                <li>Select "Add to Home Screen"</li>
+              </ol>
+              <button
+                onClick={() => setShowIOSInstructions(false)}
+                className="mt-3 text-xs text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+              >
+                Got it
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </header>

@@ -14,8 +14,16 @@ export function usePWAInstall() {
     useState<BeforeInstallPromptEvent | null>(null);
   const [isInstallable, setIsInstallable] = useState(false);
   const [isInstalled, setIsInstalled] = useState(false);
+  const [isIOS, setIsIOS] = useState(false);
 
   useEffect(() => {
+    // Check if iOS
+    const checkIOS = () => {
+      const userAgent = window.navigator.userAgent.toLowerCase();
+      return /iphone|ipad|ipod/.test(userAgent);
+    };
+    setIsIOS(checkIOS());
+
     // Check if already installed
     const checkInstalled = () => {
       setIsInstalled(window.matchMedia("(display-mode: standalone)").matches);
@@ -55,5 +63,6 @@ export function usePWAInstall() {
     install,
     isInstallable,
     isInstalled,
+    isIOS,
   };
 }

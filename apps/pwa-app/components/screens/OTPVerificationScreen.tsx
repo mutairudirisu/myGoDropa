@@ -46,7 +46,7 @@ export default function OTPVerificationScreen({
   };
 
   return (
-    <div className="h-screen bg-zinc-100 flex flex-col p-6">
+    <div className="min-h-screen bg-zinc-100 flex flex-col p-6">
       <button onClick={onBack} className="w-fit p-2 mb-6 bg-white rounded-full flex items-center justify-center gap-2 shadow-sm">
         <ArrowLeft className="w-6 h-6 text-gray-900" />
       </button>
@@ -81,7 +81,7 @@ export default function OTPVerificationScreen({
               value={digit}
               onChange={(e) => handleChange(index, e.target.value)}
               onKeyDown={(e) => handleKeyDown(index, e)}
-              className="w-11 h-11 border border-gray-200 rounded-xl text-center text-xl font-semibold text-gray-900 focus:border-orange-primary focus:ring-2 focus:ring-orange-primary/20 outline-none transition-all"
+              className="w-12 h-12 border border-gray-200 rounded-xl text-center text-[12px] font-semibold text-gray-900 focus:border-orange-primary focus:ring-2 focus:ring-orange-primary/20 outline-none transition-all"
             />
           ))}
         </div>

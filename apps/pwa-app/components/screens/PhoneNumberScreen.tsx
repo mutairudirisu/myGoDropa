@@ -23,9 +23,9 @@ export default function PhoneNumberScreen({ onNext, onBack }: PhoneNumberScreenP
         animate={{ y: 0, opacity: 1 }}
         className="flex-1 flex flex-col"
       >
-        <div className="w-14 h-14 bg-orange-primary/10 rounded-2xl flex items-center justify-center mb-6">
+        {/* <div className="w-14 h-14 bg-orange-primary/10 rounded-2xl flex items-center justify-center mb-6">
           <Smartphone className="w-7 h-7 text-orange-primary" />
-        </div>
+        </div> */}
 
         <h2 className="text-lg font-semibold text-gray-900 mb-2">
           What's your phone number?
