@@ -1,54 +1,27 @@
 "use client";
 
 import Image from "next/image";
-import SplashIndicator from "./SplashIndicator";
-import { motion, useMotionValue, useSpring } from "framer-motion";
-import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 interface SplashScreenProps {
   onComplete: () => void;
 }
 
-const slides = [
-  {
-    title: "Logistics Evolved",
-    description: "Fast, reliable delivery across the nation"
-  },
-  {
-    title: "Track in Real-Time",
-    description: "See your rider's location live as they deliver"
-  },
-  {
-    title: "Get Started Now",
-    description: "Sign up and start sending packages in minutes"
-  }
-];
-
 export default function SplashScreen({ onComplete }: SplashScreenProps) {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [slideWidth, setSlideWidth] = useState(400);
-  const x = useMotionValue(0);
-  const springX = useSpring(x, { stiffness: 500, damping: 50 });
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const updateWidth = () => {
-      setSlideWidth(window.innerWidth);
-      x.set(-currentSlide * window.innerWidth);
-    };
-    updateWidth();
-    window.addEventListener("resize", updateWidth);
-    return () => window.removeEventListener("resize", updateWidth);
-  }, [currentSlide, x]);
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+      onComplete();
+    }, 3000);
 
-  const handleDragEnd = (_: any, info: any) => {
-    let slideIndex = Math.round(-(info.offset.x + (info.velocity.x * 0.2)) / slideWidth);
-    const newIndex = Math.max(0, Math.min(2, slideIndex));
-    setCurrentSlide(newIndex);
-    x.set(-newIndex * slideWidth);
-  };
+    return () => clearTimeout(timer);
+  }, [onComplete]);
 
   return (
-    <main className="relative min-h-[100svh] overflow-hidden">
+    <main className="relative min-h-[100svh] overflow-hidden flex items-center justify-center">
       {/* Orange Gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#FF6B00] via-[#FF7A00] to-[#FF9500]" />
 
@@ -67,72 +40,63 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
         />
       </div>
 
-      {/* Center Content - Slides */}
-      <motion.div
-        drag="x"
-        dragConstraints={{ left: -2 * slideWidth, right: 0 }}
-        dragElastic={0.1}
-        dragMomentum={true}
-        onDragEnd={handleDragEnd}
-        style={{ x: springX, width: `${3 * slideWidth}px` }}
-        className="relative z-10 flex h-full"
-      >
-        {slides.map((slide, i) => (
-          <div key={i} className="flex h-full flex-col items-center" style={{ width: `${slideWidth}px` }}>
-            <div className="flex-1 flex flex-col items-center justify-center mt-10 px-6 mt-52">
-              <motion.div
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={i === currentSlide ? { scale: 1, opacity: 1 } : { scale: 0.9, opacity: 0 }}
-                transition={{ duration: 0.6 }}
-              >
-                <Image
-                  src="/images/GoDropa-FullLogo-white.png"
-                  alt="GoDropa"
-                  width={100}
-                  height={100}
-                  priority
-                />
-              </motion.div>
+      {/* Center Content */}
+      <div className="relative z-10 flex flex-col items-center px-6">
+        <motion.div
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.6 }}
+        >
+          <Image
+            src="/images/GoDropa-FullLogo-white.png"
+            alt="GoDropa"
+            width={120}
+            height={120}
+            priority
+          />
+        </motion.div>
 
-              <motion.h2
-                initial={{ y: 10, opacity: 0 }}
-                animate={i === currentSlide ? { y: 0, opacity: 1 } : { y: 10, opacity: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className=" text-sm font-medium text-white tracking-wide text-center"
-              >
-                {slide.title}
-              </motion.h2>
+        <motion.h2
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="mt-0 text-md font-medium text-white text-center tracking-wide"
+        >
+          Logistics Evolved
+        </motion.h2>
 
-              <motion.p
-                initial={{ y: 10, opacity: 0 }}
-                animate={i === currentSlide ? { y: 0, opacity: 1 } : { y: 10, opacity: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                className=" text-white/90 text-[10px] font-medium tracking-wider text-center max-w-sm"
-              >
-                {slide.description}
-              </motion.p>
+        {/* <motion.p
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="mt-1 text-white/90 text-xs font-medium tracking-wider text-center max-w-xs"
+        >
+          Fast, reliable delivery across the nation
+        </motion.p> */}
 
-              {i === 2 && (
-                <motion.button
-                  initial={{ y: 10, opacity: 0 }}
-                  animate={i === currentSlide ? { y: 0, opacity: 1 } : { y: 10, opacity: 0 }}
-                  transition={{ duration: 0.6, delay: 0.6 }}
-                  onClick={onComplete}
-                  className="mt-52 bg-white text-[#FF6B00] px-6 py-2.5 rounded-full font-semibold hover:bg-gray-100 transition-colors"
-                >
-                  Get Started
-                </motion.button>
-              )}
-            </div>
-
-            <div className="mb-10" />
-          </div>
-        ))}
-      </motion.div>
-
-      {/* Slider */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20">
-        <SplashIndicator currentSlide={currentSlide} />
+        {/* Loading Indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.7 }}
+          className="mt-8 flex gap-2"
+        >
+          {[0, 1, 2].map((i) => (
+            <motion.div
+              key={i}
+              className="w-2 h-2 bg-white rounded-full"
+              animate={{
+                y: [0, -8, 0],
+              }}
+              transition={{
+                duration: 1.2,
+                repeat: Infinity,
+                delay: i * 0.2,
+                ease: "easeInOut",
+              }}
+            />
+          ))}
+        </motion.div>
       </div>
     </main>
   );
