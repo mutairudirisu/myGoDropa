@@ -33,8 +33,8 @@ export default function RoleSelectionScreen({ onNext }: RoleSelectionScreenProps
   const [selectedRole, setSelectedRole] = useState<string>("customer");
 
   return (
-    <div className="min-h-screen bg-white flex flex-col p-6">
-      <button className="w-fit p-2 mb-6">
+    <div className="min-h-screen bg-zinc-100 flex flex-col p-6">
+      <button className="w-fit p-2 mb-6 rounded-full bg-white shadow-sm">
         <ArrowLeft className="w-6 h-6 text-gray-900" />
       </button>
 
@@ -43,10 +43,10 @@ export default function RoleSelectionScreen({ onNext }: RoleSelectionScreenProps
         animate={{ y: 0, opacity: 1 }}
         className="flex-1 flex flex-col"
       >
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">
+        <h2 className="text-lg font-bold text-gray-900 mb-2">
           Who are you?
         </h2>
-        <p className="text-gray-600 mb-8">
+        <p className="text-gray-600 mb-8 text-sm ">
           Select the option that best describes you.
         </p>
 
@@ -62,15 +62,15 @@ export default function RoleSelectionScreen({ onNext }: RoleSelectionScreenProps
               }`}
             >
               <div
-                className={`w-14 h-14 rounded-xl flex items-center justify-center ${
+                className={`w-12 h-12 rounded-xl flex items-center justify-center ${
                   selectedRole === role.id ? "bg-orange-primary/10" : "bg-gray-100"
                 }`}
               >
                 {role.icon}
               </div>
               <div className="text-left">
-                <p className="font-semibold text-gray-900">{role.title}</p>
-                <p className="text-sm text-gray-500">{role.description}</p>
+                <p className="font-semibold text-sm text-gray-900">{role.title}</p>
+                <p className="text-sm text-gray-500 text-[12px]">{role.description}</p>
               </div>
               {selectedRole === role.id && (
                 <div className="ml-auto">
@@ -86,7 +86,7 @@ export default function RoleSelectionScreen({ onNext }: RoleSelectionScreenProps
 
       <button
         onClick={() => onNext(selectedRole)}
-        className="w-full py-4 bg-orange-primary text-white rounded-full font-semibold hover:bg-orange-dark transition-colors flex items-center justify-center gap-2"
+        className="w-full py-4 text-sm bg-orange-primary text-white rounded-full font-semibold hover:bg-orange-dark transition-colors flex items-center justify-center gap-2"
       >
         Continue
         <ArrowLeft className="w-5 h-5 rotate-180" />

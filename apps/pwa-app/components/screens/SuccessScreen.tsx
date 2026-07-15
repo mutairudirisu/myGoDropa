@@ -70,16 +70,16 @@ export default function SuccessScreen({ onNext }: SuccessScreenProps) {
           <CheckCircle2 className="w-12 h-12 text-green-primary" />
         </div>
 
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">
+        <h2 className="text-lg font-bold text-gray-900 mb-4">
           Account Created Successfully! 🎉
         </h2>
-        <p className="text-gray-600 mb-10">
+        <p className="text-gray-600 mb-10 text-sm">
           Welcome to GoDropa! Your account is ready to go.
         </p>
 
         <button
           onClick={onNext}
-          className="w-full py-4 bg-orange-primary text-white rounded-full font-semibold hover:bg-orange-dark transition-colors flex items-center justify-center gap-2"
+          className="w-full text-sm py-4 bg-orange-primary text-white rounded-full font-semibold hover:bg-orange-dark transition-colors flex items-center justify-center gap-2"
         >
           Enter Dashboard
         </button>

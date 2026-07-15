@@ -4,12 +4,12 @@ import { Home, Package, Calendar, Wallet, User, Plus, Bell, ArrowUp, ArrowRightL
 
 export default function DashboardPreviewScreen() {
   return (
-    <div className="min-h-screen bg-gray-50 pb-24">
+    <div className="min-h-screen bg-zinc-50 pb-24">
       {/* Header */}
-      <div className="bg-white px-5 py-5">
+      <div className="bg-white shadow-sm rounded-b-2xl px-4 py-5">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-full overflow-hidden">
+            <div className="w-9 h-9 shadow-md rounded-xl overflow-hidden">
               <img 
                 src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=faces" 
                 alt="Profile" 
@@ -17,29 +17,29 @@ export default function DashboardPreviewScreen() {
               />
             </div>
             <div>
-              <div className="flex items-center gap-2">
-                <span className="text-xs text-gray-500">Lvl 2</span>
-                <span className="text-xs bg-orange-100 text-orange-600 px-2 py-0.5 rounded-full">🌺</span>
+              <div className="inline-flex px-2 rounded-full py-0 items-center gap-2 bg-green-100 ">
+                <span className="text-[10px] text-gray-700 font-bold">Lvl 2</span>
+                <span className="text-xs bg-orange-100 text-orange-600 px-1 py-0.5 rounded-full">🌺</span>
               </div>
-              <h3 className="text-lg font-semibold text-gray-900">Mutairu Dirisu</h3>
+              <h3 className="text-[12px] font-semibold text-gray-900">Mutairu Dirisu</h3>
             </div>
           </div>
-          <button className="relative">
-            <Bell className="w-6 h-6 text-gray-700" />
+          <button className="relative bg-zinc-100 rounded-full p-2">
+            <Bell className="w-5 h-5 text-gray-700" />
             <span className="absolute top-0 right-0 w-2.5 h-2.5 bg-orange-500 rounded-full border-2 border-white"></span>
           </button>
         </div>
 
         {/* Wallet Section */}
-        <div className="bg-white">
-          <div className="flex items-center gap-2 mb-4">
+        <div className="bg-white rounded-b-xl">
+          <div className="inline-flex px-2 py-1 items-center gap-2 mb-4 bg-zinc-100 rounded-full">
             <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
               <span className="text-white text-xs font-bold">₦</span>
             </div>
-            <span className="text-sm font-medium text-gray-500">NGN</span>
+            <span className="text-[12px] font-medium text-gray-500">NGN</span>
           </div>
           <div className="flex items-end justify-between mb-6">
-            <h1 className="text-3xl font-bold text-gray-900">₦25,600.00</h1>
+            <h1 className="text-3xl font-semibold text-gray-900">₦25,600<span className="text-orange-300">.00</span></h1>
             <button className="p-2 rounded-full hover:bg-gray-100">
               <span className="text-gray-400">👁️</span>
             </button>
@@ -52,7 +52,7 @@ export default function DashboardPreviewScreen() {
               { icon: <MoreHorizontal className="w-5 h-5 text-gray-700" />, label: "More", bg: "bg-gray-50" },
             ].map((item, i) => (
               <button key={i} className="flex flex-col items-center gap-2">
-                <div className={`w-14 h-14 rounded-full ${item.bg} flex items-center justify-center shadow-sm`}>
+                <div className={`px-6 py-2 rounded-full ${item.bg} flex items-center justify-center shadow-sm`}>
                   {item.icon}
                 </div>
                 <span className="text-xs font-medium text-gray-700">{item.label}</span>
@@ -62,30 +62,30 @@ export default function DashboardPreviewScreen() {
         </div>
       </div>
 
-      <div className="px-5 py-6 space-y-6">
+      <div className="px-4 py-6 space-y-6">
         {/* Quick Actions */}
         <section>
           <h4 className="text-sm font-semibold text-gray-900 mb-4">Quick Actions</h4>
-          <div className="grid grid-cols-4 gap-3">
+          <div className="grid grid-cols-4 gap-2">
             {[ 
-              { icon: <Package className="w-6 h-6 text-[#FF6B00]" />, label: "Send Package" },
-              { icon: <MapPin className="w-6 h-6 text-[#0F172A]" />, label: "Track Package" },
-              { icon: <Calendar className="w-6 h-6 text-[#0F172A]" />, label: "Schedule Delivery" },
-              { icon: <CheckCircle2 className="w-6 h-6 text-[#0F172A]" />, label: "Price Estimate" },
+              { icon: <Package className="w-5 h-5 text-[#FF6B00]" />, label: "Send" },
+              { icon: <MapPin className="w-5 h-5 text-[#0F172A]" />, label: "Track" },
+              { icon: <Calendar className="w-5 h-5 text-[#0F172A]" />, label: "Schedule" },
+              { icon: <CheckCircle2 className="w-5 h-5 text-[#0F172A]" />, label: "Pricing" },
             ].map((item, i) => (
-              <button key={i} className="flex flex-col items-center gap-2 p-3 bg-white rounded-2xl shadow-sm border border-gray-100">
-                <div className="w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center">
+              <button key={i} className="flex flex-col items-center py-2 px-4 bg-white rounded-2xl shadow-sm border border-gray-100">
+                <div className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center">
                   {item.icon}
                 </div>
-                <span className="text-xs font-medium text-gray-800 text-center leading-tight">{item.label}</span>
+                <span className="text-[10px] font-medium text-gray-800 text-center leading-tight">{item.label}</span>
               </button>
             ))}
           </div>
         </section>
 
         {/* Recent Activity */}
-        <section className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
-          <div className="flex justify-between items-center mb-4">
+        <section className="bg-white rounded-2xl px-4 py-6  shadow-sm border border-gray-100">
+          <div className="flex justify-between items-center mb-6">
             <h4 className="text-sm font-semibold text-gray-900">Recent Activity</h4>
             <button className="text-sm font-medium text-[#FF6B00]">See All</button>
           </div>
@@ -118,10 +118,10 @@ export default function DashboardPreviewScreen() {
                   {item.icon}
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm font-medium text-gray-900">{item.title}</p>
-                  <p className="text-xs text-gray-400">{item.time}</p>
+                  <p className="text-[12px] font-medium text-gray-900">{item.title}</p>
+                  <p className="text-[9px] text-gray-400">{item.time}</p>
                 </div>
-                <p className={`text-sm font-semibold ${item.color}`}>{item.amount}</p>
+                <p className={`text-[12px] font-semibold ${item.color}`}>{item.amount}</p>
               </div>
             ))}
           </div>

@@ -6,7 +6,7 @@ import { usePWAInstall } from "@/hooks/usePWAInstall";
 const APP_URL =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3001"
-    : "https://app-godropa.vercel.app";
+    : "https://appgodropa.vercel.app";
 
 export default function CTA() {
   const { install, isInstallable, isInstalled } = usePWAInstall();

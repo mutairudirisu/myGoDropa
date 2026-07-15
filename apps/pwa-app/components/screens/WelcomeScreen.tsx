@@ -19,12 +19,12 @@ export default function WelcomeScreen({ onNext }: WelcomeScreenProps) {
           <img
             src="/images/GoDropa-Logo.png"
             alt="GoDropa Logo"
-            className="w-24 h-24 object-contain mx-auto mb-4"
+            className="w-16 h-16 object-contain mx-auto mb-4"
           />
-          <h2 className="text-xl font-bold text-gray-900 mb-3">
+          <h2 className="text-lg font-bold text-gray-900 ">
             Welcome to <span className="text-[#FF6B00]">GoDropa</span>
           </h2>
-          <p className="text-sm text-gray-600">
+          <p className="text-[12px] text-gray-600">
             Move anything, anywhere, anytime.
           </p>
         </div>
@@ -42,7 +42,7 @@ export default function WelcomeScreen({ onNext }: WelcomeScreenProps) {
         <div className="space-y-4">
           <button
             onClick={onNext}
-            className="w-full py-4 bg-[#FF6B00] text-white rounded-2xl font-semibold text-base hover:bg-[#E85D00] transition-colors flex items-center justify-center gap-3 shadow-lg shadow-orange-200"
+            className="w-full py-4 text-sm bg-[#FF6B00] text-white rounded-full font-semibold text-base hover:bg-[#E85D00] transition-colors flex items-center justify-center gap-3 shadow-lg shadow-orange-200"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M21 8V7a1 1 0 0 0-2 0v1h-1a1 1 0 0 0 0 2h1v1a1 1 0 0 0 2 0v-1h1a1 1 0 0 0 0-2h-1zM11 19H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h3.5a1 1 0 1 1 0 2H7v10h4a1 1 0 1 1 0 2z" fill="white"/>
@@ -51,7 +51,7 @@ export default function WelcomeScreen({ onNext }: WelcomeScreenProps) {
           </button>
 
           <button
-            className="w-full py-4 bg-gray-50 border border-gray-200 text-gray-800 rounded-2xl font-semibold text-base hover:bg-gray-100 transition-colors flex items-center justify-center gap-3"
+            className="w-full py-4 text-sm bg-gray-50 border border-gray-200 text-gray-800 rounded-full font-semibold text-base hover:bg-gray-100 transition-colors flex items-center justify-center gap-3"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
@@ -63,7 +63,7 @@ export default function WelcomeScreen({ onNext }: WelcomeScreenProps) {
           </button>
 
           <button
-            className="w-full py-4 bg-gray-900 text-white rounded-2xl font-semibold text-base hover:bg-black transition-colors flex items-center justify-center gap-3"
+            className="w-full py-4 text-sm bg-gray-900 text-white rounded-full font-semibold text-base hover:bg-black transition-colors flex items-center justify-center gap-3"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" fill="white"/>
