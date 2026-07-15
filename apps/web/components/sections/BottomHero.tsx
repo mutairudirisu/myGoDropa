@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 const APP_URL =
   process.env.NODE_ENV === "development"
@@ -8,6 +9,49 @@ const APP_URL =
     : "https://app.godropa.com";
 
 export default function BottomHero() {
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [isInstalled, setIsInstalled] = useState(false);
+
+  useEffect(() => {
+    const checkInstalled = () => {
+      if (window.matchMedia("(display-mode: standalone)").matches) {
+        setIsInstalled(true);
+      }
+    };
+    checkInstalled();
+
+    const handleBeforeInstallPrompt = (e: Event) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+    };
+
+    const handleAppInstalled = () => {
+      setIsInstalled(true);
+      setDeferredPrompt(null);
+    };
+
+    window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+    window.addEventListener("appinstalled", handleAppInstalled);
+
+    return () => {
+      window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+      window.removeEventListener("appinstalled", handleAppInstalled);
+    };
+  }, []);
+
+  const handleDownloadClick = async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === "accepted") {
+        setIsInstalled(true);
+      }
+      setDeferredPrompt(null);
+    } else {
+      window.location.href = APP_URL;
+    }
+  };
+
   return (
     <div className="px-4 md:px-10 pb-10 md:pb-16">
       <div className="mx-auto max-w-[1440px] flex flex-col md:flex-row justify-between items-center md:items-end gap-8 md:gap-0">
@@ -46,12 +90,10 @@ export default function BottomHero() {
             <motion.button
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
-              onClick={() => {
-                window.location.href = APP_URL;
-              }}
+              onClick={handleDownloadClick}
               className="bg-orange-primary text-white font-semibold px-6 md:px-8 py-2.5 md:py-3 text-base md:text-lg rounded-full w-full sm:w-auto"
             >
-              Let's Drop It
+              {isInstalled ? "Open App" : "Download App"}
             </motion.button>
             <motion.button
               whileHover={{ scale: 1.03 }}
