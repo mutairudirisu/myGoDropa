@@ -8,20 +8,14 @@ interface SplashIndicatorProps {
 
 export default function SplashIndicator({ currentSlide }: SplashIndicatorProps) {
   return (
-    <div className="flex items-center gap-2">
-      {[0, 1, 2].map((i) => (
-        <motion.span
-          key={i}
-          initial={false}
-          animate={{
-            width: i === currentSlide ? 32 : 8,
-            height: i === currentSlide ? 6 : 8,
-            opacity: i === currentSlide ? 1 : i === (currentSlide + 1) % 3 ? 0.7 : 0.35,
-          }}
-          transition={{ duration: 0.5 }}
-          className="rounded-full bg-white"
-        />
-      ))}
+    <div className="relative h-2 w-24 rounded-full bg-white/30 overflow-hidden">
+      <motion.div
+        className="absolute top-0 left-0 h-full w-1/3 bg-white rounded-full"
+        animate={{
+          x: `${currentSlide * 100}%`,
+        }}
+        transition={{ type: "spring", stiffness: 500, damping: 50 }}
+      />
     </div>
   );
 }
