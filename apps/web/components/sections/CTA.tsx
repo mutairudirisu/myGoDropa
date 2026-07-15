@@ -4,24 +4,28 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { usePWAInstall } from "@/hooks/usePWAInstall";
 
-const APP_URL =
-  process.env.NODE_ENV === "development"
-    ? "http://localhost:3001"
-    : "https://appgodropa.vercel.app";
-
 export default function CTA() {
-  const { install, isInstallable, isInstalled, isIOS } = usePWAInstall();
+  const {
+    install,
+    openApp,
+    isInstallable,
+    isInstalled,
+    isIOS,
+    isLoading,
+    error,
+    clearError,
+    APP_URL,
+  } = usePWAInstall();
   const [showIOSInstructions, setShowIOSInstructions] = useState(false);
 
   const handleClick = async () => {
     if (isInstalled) {
-      window.location.href = APP_URL;
+      openApp();
     } else if (isInstallable) {
       await install();
     } else if (isIOS) {
       setShowIOSInstructions(!showIOSInstructions);
     } else {
-      // If not installable and not iOS, redirect to PWA
       window.location.href = APP_URL;
     }
   };
@@ -43,11 +47,32 @@ export default function CTA() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={handleClick}
-              className="w-full md:w-auto px-8 md:px-10 py-3 bg-[#FF6B00] hover:bg-[#E85D00] text-white font-semibold rounded-2xl text-base md:text-lg transition-colors"
+              disabled={isLoading}
+              className="w-full md:w-auto px-8 md:px-10 py-3 bg-[#FF6B00] hover:bg-[#E85D00] text-white font-semibold rounded-2xl text-base md:text-lg transition-colors disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
+              {isLoading && (
+                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+              )}
               {isInstalled ? "Open App" : "Download App"}
             </motion.button>
-            {showIOSInstructions && (
+            {error && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-red-50 dark:bg-red-900/20 p-4 rounded-xl border border-red-200 dark:border-red-800"
+              >
+                <p className="text-sm text-red-700 dark:text-red-300">
+                  {error.message}
+                </p>
+                <button
+                  onClick={() => clearError()}
+                  className="mt-2 text-xs text-red-500 hover:text-red-700 dark:hover:text-red-300"
+                >
+                  Dismiss
+                </button>
+              </motion.div>
+            )}
+            {showIOSInstructions && !error && (
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}

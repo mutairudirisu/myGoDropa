@@ -1,28 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
-import { usePWAInstall } from "@/hooks/usePWAInstall";
 
 interface WelcomeScreenProps {
   onNext: () => void;
 }
 
 export default function WelcomeScreen({ onNext }: WelcomeScreenProps) {
-  const { install, isInstallable, isInstalled, isIOS } = usePWAInstall();
-  const [showIOSInstructions, setShowIOSInstructions] = useState(false);
-
-  const handleInstallClick = async () => {
-    if (isInstalled) return;
-    if (isInstallable) {
-      await install();
-    } else if (isIOS) {
-      setShowIOSInstructions(!showIOSInstructions);
-    }
-  };
-
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center justify-center p-4 md:p-6 text-center">
+    <div className="h-screen bg-white flex flex-col items-center justify-center p-6 text-center">
       <motion.div
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -35,7 +21,7 @@ export default function WelcomeScreen({ onNext }: WelcomeScreenProps) {
             alt="GoDropa Logo"
             className="w-16 h-16 object-contain mx-auto mb-4"
           />
-          <h2 className="text-lg font-bold text-gray-900">
+          <h2 className="text-lg font-bold text-gray-900 ">
             Welcome to <span className="text-[#FF6B00]">GoDropa</span>
           </h2>
           <p className="text-[12px] text-gray-600">
@@ -43,7 +29,7 @@ export default function WelcomeScreen({ onNext }: WelcomeScreenProps) {
           </p>
         </div>
 
-        <div className="relative mb-10 h-40 md:h-48">
+        <div className="relative mb-10 h-48">
           <div className="absolute inset-0 flex items-center justify-center">
             <img
               src="/images/GoDrop-Backpack-side.png"
@@ -54,38 +40,6 @@ export default function WelcomeScreen({ onNext }: WelcomeScreenProps) {
         </div>
 
         <div className="space-y-4">
-          {(isInstallable || isIOS) && !isInstalled && (
-            <button
-              onClick={handleInstallClick}
-              className="w-full py-3 text-sm bg-green-600 text-white rounded-full font-semibold hover:bg-green-700 transition-colors flex items-center justify-center gap-2"
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M19 9h-4V3H9v6H5l7 7 7-7z" fill="white"/>
-              </svg>
-              {isIOS ? "Install App" : "Install App"}
-            </button>
-          )}
-
-          {showIOSInstructions && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="bg-gray-50 border border-gray-200 rounded-xl p-4 text-left"
-            >
-              <p className="text-sm text-gray-700 mb-2 font-medium">Install on iOS:</p>
-              <ol className="list-decimal list-inside text-gray-600 text-sm space-y-1">
-                <li>Tap the share button <span className="inline-block align-middle">⎋</span></li>
-                <li>Select "Add to Home Screen"</li>
-              </ol>
-              <button
-                onClick={() => setShowIOSInstructions(false)}
-                className="mt-3 text-xs text-gray-500 hover:text-gray-700"
-              >
-                Got it
-              </button>
-            </motion.div>
-          )}
-
           <button
             onClick={onNext}
             className="w-full py-4 text-sm bg-[#FF6B00] text-white rounded-full font-semibold text-base hover:bg-[#E85D00] transition-colors flex items-center justify-center gap-3 shadow-lg shadow-orange-200"

@@ -22,6 +22,8 @@ const brotherSignature = localFont({
 export const metadata: Metadata = {
   title: "GoDropa - Logistics Evolved",
   description: "The fastest way to send and track packages across Nigeria. AI-powered routing, real-time tracking, and verified local drivers.",
+  manifest: "/manifest.json",
+  themeColor: "#FF6B00",
 };
 
 export default function RootLayout({

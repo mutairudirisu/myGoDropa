@@ -4,26 +4,28 @@ import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { usePWAInstall } from "@/hooks/usePWAInstall";
 
-const APP_URL =
-  process.env.NODE_ENV === "development"
-    ? "http://localhost:3001"
-    : "https://appgodropa.vercel.app";
-
 export default function Navbar() {
-  const { install, isInstallable, isInstalled, isIOS } = usePWAInstall();
+  const {
+    install,
+    openApp,
+    isInstallable,
+    isInstalled,
+    isIOS,
+    isLoading,
+    error,
+    clearError,
+    APP_URL,
+  } = usePWAInstall();
   const [showIOSInstructions, setShowIOSInstructions] = useState(false);
 
   const handleClick = async () => {
     if (isInstalled) {
-      // If app is installed, open it
-      window.location.href = APP_URL;
+      openApp();
     } else if (isInstallable) {
-      // Show install prompt
       await install();
     } else if (isIOS) {
       setShowIOSInstructions(!showIOSInstructions);
     } else {
-      // If no deferred prompt, just redirect to the PWA
       window.location.href = APP_URL;
     }
   };
@@ -58,11 +60,28 @@ export default function Navbar() {
         <div className="flex items-center gap-4 relative">
           <button
             onClick={handleClick}
-            className="bg-orange-primary text-base text-white px-4 py-2 rounded-full font-semibold hover:scale-105 transition-transform"
+            disabled={isLoading}
+            className="bg-orange-primary text-base text-white px-4 py-2 rounded-full font-semibold hover:scale-105 transition-transform disabled:opacity-70 disabled:cursor-not-allowed flex items-center gap-2"
           >
+            {isLoading && (
+              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+            )}
             {isInstalled ? "Open App" : "Let's Drop It"}
           </button>
-          {showIOSInstructions && (
+          {error && (
+            <div className="absolute top-full right-0 mt-2 w-72 bg-red-50 dark:bg-red-900/20 p-4 rounded-xl border border-red-200 dark:border-red-800 shadow-lg z-50">
+              <p className="text-sm text-red-700 dark:text-red-300">
+                {error.message}
+              </p>
+              <button
+                onClick={() => clearError()}
+                className="mt-2 text-xs text-red-500 hover:text-red-700 dark:hover:text-red-300"
+              >
+                Dismiss
+              </button>
+            </div>
+          )}
+          {showIOSInstructions && !error && (
             <div className="absolute top-full right-0 mt-2 w-72 bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-200 dark:border-gray-700 shadow-lg z-50">
               <p className="text-sm text-gray-700 dark:text-gray-300">
                 To install the app on iOS:

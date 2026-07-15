@@ -21,7 +21,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
   }, [onComplete]);
 
   return (
-    <main className="relative min-h-screen overflow-hidden flex items-center justify-center">
+    <main className="relative h-screen overflow-hidden flex items-center justify-center">
       {/* Orange Gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#FF6B00] via-[#FF7A00] to-[#FF9500]" />
 

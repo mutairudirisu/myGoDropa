@@ -1,15 +1,11 @@
 {
-  "name": "GoDropa - AI Logistics Platform",
+  "name": "GoDropa - Logistics Evolved",
   "short_name": "GoDropa",
-  "description": "Your Professional AI Logistics Platform",
+  "description": "The fastest way to send and track packages across Nigeria. AI-powered routing, real-time tracking, and verified local drivers.",
   "start_url": "/",
   "display": "standalone",
-  "display_override": ["standalone", "fullscreen", "minimal-ui"],
   "background_color": "#FF6B00",
   "theme_color": "#FF6B00",
-  "scope": "/",
-  "orientation": "portrait-primary",
-  "categories": ["productivity", "business", "transportation"],
   "icons": [
     {
       "src": "/images/GoDropa-Logo.png",
@@ -80,31 +76,5 @@
       "url": "https://appgodropa.vercel.app/manifest.json"
     }
   ],
-  "prefer_related_applications": false,
-  "screenshots": [
-    {
-      "src": "/images/features1.png",
-      "sizes": "1080x1920",
-      "type": "image/png",
-      "form_factor": "narrow"
-    },
-    {
-      "src": "/images/features2.png",
-      "sizes": "1080x1920",
-      "type": "image/png",
-      "form_factor": "narrow"
-    }
-  ],
-  "shortcuts": [
-    {
-      "name": "Send Package",
-      "url": "/?action=send",
-      "description": "Quickly send a package"
-    },
-    {
-      "name": "Track Delivery",
-      "url": "/?action=track",
-      "description": "Track your deliveries in real-time"
-    }
-  ]
+  "prefer_related_applications": true
 }

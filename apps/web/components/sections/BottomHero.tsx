@@ -4,24 +4,28 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { usePWAInstall } from "@/hooks/usePWAInstall";
 
-const APP_URL =
-  process.env.NODE_ENV === "development"
-    ? "http://localhost:3001"
-    : "https://appgodropa.vercel.app";
-
 export default function BottomHero() {
-  const { install, isInstallable, isInstalled, isIOS } = usePWAInstall();
+  const {
+    install,
+    openApp,
+    isInstallable,
+    isInstalled,
+    isIOS,
+    isLoading,
+    error,
+    clearError,
+    APP_URL,
+  } = usePWAInstall();
   const [showIOSInstructions, setShowIOSInstructions] = useState(false);
 
   const handleDownloadClick = async () => {
     if (isInstalled) {
-      window.location.href = APP_URL;
+      openApp();
     } else if (isInstallable) {
       await install();
     } else if (isIOS) {
       setShowIOSInstructions(!showIOSInstructions);
     } else {
-      // If not installable and not iOS, redirect to PWA
       window.location.href = APP_URL;
     }
   };
@@ -66,8 +70,12 @@ export default function BottomHero() {
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={handleDownloadClick}
-                className="bg-orange-primary text-white font-semibold px-6 md:px-8 py-2.5 md:py-3 text-base md:text-lg rounded-full w-full sm:w-auto"
+                disabled={isLoading}
+                className="bg-orange-primary text-white font-semibold px-6 md:px-8 py-2.5 md:py-3 text-base md:text-lg rounded-full w-full sm:w-auto disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
+                {isLoading && (
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                )}
                 {isInstalled ? "Open App" : "Download App"}
               </motion.button>
               <motion.button
@@ -78,7 +86,24 @@ export default function BottomHero() {
                 Learn More
               </motion.button>
             </div>
-            {showIOSInstructions && (
+            {error && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-red-50 dark:bg-red-900/20 p-4 rounded-xl border border-red-200 dark:border-red-800"
+              >
+                <p className="text-sm text-red-700 dark:text-red-300">
+                  {error.message}
+                </p>
+                <button
+                  onClick={() => clearError()}
+                  className="mt-2 text-xs text-red-500 hover:text-red-700 dark:hover:text-red-300"
+                >
+                  Dismiss
+                </button>
+              </motion.div>
+            )}
+            {showIOSInstructions && !error && (
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
