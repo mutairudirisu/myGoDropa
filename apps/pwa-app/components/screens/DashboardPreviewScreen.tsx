@@ -18,9 +18,9 @@ export default function DashboardPreviewScreen() {
   );
 
   return (
-    <div className="min-h-screen bg-zinc-50 pb-24">
+    <div className="min-h-screen bg-zinc-50 pt-72 pb-24">
       {/* Header */}
-      <div className="bg-white shadow-md rounded-b-2xl px-4 py-5">
+      <div className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md rounded-b-3xl px-4 py-5">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 shadow-md rounded-xl overflow-hidden">
@@ -46,41 +46,43 @@ export default function DashboardPreviewScreen() {
 
         {/* Wallet Section */}
         <div className="bg-white rounded-b-2xl">
-          <div className="inline-flex px-2 py-1 items-center gap-2 mb-4 bg-zinc-100 rounded-full">
-            <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
-              <span className="text-white text-xs font-bold">₦</span>
+          <div className="flex items-center justify-center gap-2 mb-4 rounded-full">
+            <div className="flex items-center px-4 py-2 bg-zinc-100 rounded-full gap-2">
+              <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                <span className="text-white text-xs font-bold">₦</span>
+              </div>
+              <span className="text-[12px] font-medium text-gray-500">NGN</span>
             </div>
-            <span className="text-[12px] font-medium text-gray-500">NGN</span>
           </div>
-          <div className="flex items-end justify-between mb-6">
-            <h1 className="text-3xl font-semibold text-gray-900">₦25,600<span className="text-orange-300">.00</span></h1>
+          <div className="flex justify-center items-center gap-2 mb-6">
+            <h1 className="text-3xl font-bold text-gray-900">₦25,600<span className="text-orange-300">.00</span></h1>
             <button className="p-2 rounded-full hover:bg-gray-100">
               <span className="text-gray-400">👁️</span>
             </button>
           </div>
-          <div className="grid grid-cols-4 gap-3">
+          <div className="grid grid-cols-3 gap-3 py-2">
             {[ 
               { icon: <Plus className="w-5 h-5 text-white" />, label: "Top Up", bg: "bg-orange-500" },
               { icon: <ArrowUp className="w-5 h-5 text-gray-700" />, label: "Send", bg: "bg-gray-50" },
               { icon: <ArrowRightLeft className="w-5 h-5 text-gray-700" />, label: "Swap", bg: "bg-gray-50" },
-              { icon: <MoreHorizontal className="w-5 h-5 text-gray-700" />, label: "More", bg: "bg-gray-50" },
+              // { icon: <MoreHorizontal className="w-5 h-5 text-gray-700" />, label: "More", bg: "bg-gray-50" },
             ].map((item, i) => (
               <button key={i} className="flex flex-col items-center gap-2">
-                <div className={`px-6 py-2 rounded-full ${item.bg} flex items-center justify-center shadow-sm`}>
+                <div className={`px-6 py-3 rounded-full ${item.bg} flex items-center justify-center shadow-sm`}>
                   {item.icon}
                 </div>
-                <span className="text-xs font-medium text-gray-700">{item.label}</span>
+                <span className="text-[14px] font-semibold text-gray-700">{item.label}</span>
               </button>
             ))}
           </div>
         </div>
       </div>
 
-      <div className="px-4 py-6 space-y-6">
+      <div className="px-4 py-12 space-y-6">
         {/* Quick Actions */}
         <section>
-          <h4 className="text-sm font-semibold text-gray-900 mb-4">Quick Actions</h4>
-          <div className="grid grid-cols-4 gap-2">
+          <h4 className="text-[16px] font-bold text-gray-900 mb-4">Quick Actions</h4>
+          <div className="grid grid-cols-4 gap-2 space-y-2">
             {[ 
               { icon: <Package className="w-5 h-5 text-[#FF6B00]" />, label: "Send" },
               { icon: <MapPin className="w-5 h-5 text-[#0F172A]" />, label: "Track" },
@@ -103,8 +105,8 @@ export default function DashboardPreviewScreen() {
         {/* Recent Activity */}
         <section className="bg-white rounded-2xl px-4 py-6  shadow-sm border border-gray-100">
           <div className="flex justify-between items-center mb-6">
-            <h4 className="text-sm font-semibold text-gray-900">Recent Activity</h4>
-            <button className="text-sm font-medium text-[#FF6B00]">See All</button>
+            <h4 className="text-[16px] font-bold text-gray-900">Recent Activity</h4>
+            <button className="text-[14px] font-medium text-[#FF6B00]">See All</button>
           </div>
           <div className="space-y-4">
             {[ 
@@ -142,8 +144,8 @@ export default function DashboardPreviewScreen() {
               </div>
             ))}
           </div>
-          <div className="mt-4 flex justify-center">
-            <button className="text-sm font-medium text-[#FF6B00] flex items-center gap-1">
+          <div className="mt-6 flex justify-center">
+            <button className="text-[14px] font-medium text-[#FF6B00] bg-orange-100 shadow-sm rounded-full px-4 py-2 flex items-center gap-1">
               See All <ArrowRightLeft className="w-4 h-4 rotate-90" />
             </button>
           </div>
