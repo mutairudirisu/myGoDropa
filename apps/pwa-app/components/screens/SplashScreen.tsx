@@ -21,7 +21,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
   }, [onComplete]);
 
   return (
-    <main className="relative h-screen overflow-hidden flex items-center justify-center">
+    <main className="relative min-h-screen overflow-hidden flex items-center justify-center">
       {/* Orange Gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#FF6B00] via-[#FF7A00] to-[#FF9500]" />
 
@@ -29,7 +29,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
       <div className="absolute -right-40 top-1/2 h-[500px] w-[500px] rounded-full bg-white/10 blur-[120px]" />
 
       {/* Bottom City */}
-      <div className="absolute -bottom-16 left-0 w-full opacity-[0.15]">
+      <div className="absolute -bottom-14 left-0 w-full opacity-[0.15]">
         <Image
           src="/images/logos-city.png"
           alt=""
@@ -41,7 +41,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
       </div>
 
       {/* Center Content */}
-      <div className="relative z-10 flex flex-col items-center px-6">
+      <div className="relative z-10 flex flex-col items-center">
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -53,28 +53,20 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
             width={120}
             height={120}
             priority
+            className="text-orange-500"
           />
         </motion.div>
-
         <motion.h2
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-0 text-md font-medium text-white text-center tracking-wide"
+          className=" text-[8px] pl-12 font-medium text-white text-center tracking-wide"
         >
-          Logistics Evolved
+          By GIGS Labs
         </motion.h2>
 
-        {/* <motion.p
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-1 text-white/90 text-xs font-medium tracking-wider text-center max-w-xs"
-        >
-          Fast, reliable delivery across the nation
-        </motion.p> */}
 
-        {/* Loading Indicator */}
+        {/* Loading Indicator
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -96,8 +88,16 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
               }}
             />
           ))}
-        </motion.div>
+        </motion.div> */}
       </div>
+        {/* <motion.h2
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="mt-0 text-md font-medium text-white text-center tracking-wide"
+        >
+          Logistics Evolved
+        </motion.h2> */}
     </main>
   );
 }
