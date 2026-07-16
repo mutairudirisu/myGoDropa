@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowLeft, Box, Car, Store } from "lucide-react";
 
@@ -33,21 +33,42 @@ interface RoleSelectionScreenProps {
 export default function RoleSelectionScreen({ onNext, onBack }: RoleSelectionScreenProps) {
   const [selectedRole, setSelectedRole] = useState<string>("customer");
 
+  const [keyboardHeight, setKeyboardHeight] = useState(0);
+
+  useEffect(() => {
+    if (!window.visualViewport) return;
+
+    const viewport = window.visualViewport;
+
+    const updateKeyboard = () => {
+      const keyboard = window.innerHeight - viewport.height - viewport.offsetTop;
+      setKeyboardHeight(Math.max(0, keyboard));
+    };
+
+    viewport.addEventListener("resize", updateKeyboard);
+    viewport.addEventListener("scroll", updateKeyboard);
+
+    return () => {
+      viewport.removeEventListener("resize", updateKeyboard);
+      viewport.removeEventListener("scroll", updateKeyboard);
+    };
+  }, []);
+
   return (
-    <div className="h-[100dvh] flex flex-col overflow-hidden bg-zinc-100">
+    <div className="min-h-screen flex flex-col bg-zinc-100">
       {/* Fixed Back Button */}
-      <div className="shrink-0 flex items-center px-6 py-4">
+      <div className="fixed top-0 left-0 right-0 z-50 flex items-center px-6 py-4">
         <button onClick={onBack} className="w-fit p-2 rounded-full bg-white shadow-sm">
           <ArrowLeft className="w-6 h-6 text-gray-900" />
         </button>
       </div>
 
-      {/* Scrollable Middle Content */}
-      <div className="flex-1 overflow-y-auto overscroll-contain px-6">
+      {/* Scrollable Content */}
+      <div className="flex-1 overflow-y-auto overscroll-contain px-6 pt-20">
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          className="flex flex-col"
+          className="flex flex-col pb-8"
         >
           <h2 className="text-lg font-bold text-gray-900 mb-2">
             Who are you?
@@ -89,17 +110,16 @@ export default function RoleSelectionScreen({ onNext, onBack }: RoleSelectionScr
             ))}
           </div>
         </motion.div>
-      </div>
 
-      {/* Fixed Continue Button */}
-      <div className="shrink-0 px-6 py-4 bg-zinc-100">
-        <button
-          onClick={() => onNext(selectedRole)}
-          className="w-full py-4 text-sm bg-orange-primary text-white rounded-full font-semibold hover:bg-orange-dark transition-colors flex items-center justify-center gap-2"
-        >
-          Continue
-          <ArrowLeft className="w-5 h-5 rotate-180" />
-        </button>
+        <div style={{ paddingBottom: keyboardHeight > 0 ? 16 : 0, transition: "padding-bottom 0.3s ease" }}>
+          <button
+            onClick={() => onNext(selectedRole)}
+            className="w-full py-4 text-sm bg-orange-primary text-white rounded-full font-semibold hover:bg-orange-dark transition-colors flex items-center justify-center gap-2"
+          >
+            Continue
+            <ArrowLeft className="w-5 h-5 rotate-180" />
+          </button>
+        </div>
       </div>
     </div>
   );
