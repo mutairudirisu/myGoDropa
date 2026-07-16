@@ -55,7 +55,7 @@ export default function DashboardPreviewScreen() {
             </div>
           </div>
           <div className="flex justify-center items-center gap-2 mb-6">
-            <h1 className="text-3xl font-bold text-gray-900">₦25,600<span className="text-orange-300">.00</span></h1>
+            <h1 className="text-3xl font-extrabold font-bricolage-grotesque text-gray-900">₦25,600<span className="text-orange-300">.00</span></h1>
             <button className="p-2 rounded-full hover:bg-gray-100">
               <span className="text-gray-400">👁️</span>
             </button>
