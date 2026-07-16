@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { Montserrat, Knewave } from "next/font/google";
+import { Montserrat, Bevan, Permanent_Marker, Bricolage_Grotesque, Quicksand } from "next/font/google";
 import "./globals.css";
 import { PWAServiceWorker } from "@/components/PWAServiceWorker";
 
@@ -9,15 +9,32 @@ const montserrat = Montserrat({
   variable: "--font-montserrat",
 });
 
+const bevan = Bevan({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-bevan",
+});
+
+const permanentMarker = Permanent_Marker({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-permanent-marker",
+});
+
+const bricolageGrotesque = Bricolage_Grotesque({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-bricolage-grotesque",
+});
+
+const quicksand = Quicksand({
+  subsets: ["latin"],
+  variable: "--font-quicksand",
+});
+
 const geistMono = localFont({
   src: "./fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
-});
-
-const knewave = Knewave({
-  subsets: ["latin"],
-  weight: "400",
-  variable: "--font-knewave",
 });
 
 export const metadata: Metadata = {
@@ -33,8 +50,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${montserrat.variable} ${geistMono.variable} ${knewave.variable}`}>
+    <html lang="en" className={`${quicksand.variable} ${montserrat.variable} ${bevan.variable} ${permanentMarker.variable} ${bricolageGrotesque.variable} ${geistMono.variable}`}>
+      <body className={`${quicksand.variable} ${geistMono.variable}`}>
         <PWAServiceWorker />
         {children}
       </body>

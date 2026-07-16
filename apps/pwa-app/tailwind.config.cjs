@@ -13,8 +13,12 @@ module.exports = {
         "green-primary": "#10b981",
       },
       fontFamily: {
-        sans: ["var(--font-montserrat)", "ui-sans-serif", "system-ui", "sans-serif"],
+        sans: ["var(--font-quicksand)", "ui-sans-serif", "system-ui", "sans-serif"],
         mono: ["var(--font-geist-mono)", "ui-monospace", "SFMono-Regular", "monospace"],
+        bevan: ["var(--font-bevan)", "serif"],
+        "permanent-marker": ["var(--font-permanent-marker)", "cursive"],
+        "bricolage-grotesque": ["var(--font-bricolage-grotesque)", "sans-serif"],
+        montserrat: ["var(--font-montserrat)", "ui-sans-serif", "system-ui", "sans-serif"],
       },
     },
   },

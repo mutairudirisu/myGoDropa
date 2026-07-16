@@ -5,16 +5,37 @@
 :root {
   --background: #F8FAFC;
   --foreground: #111111;
+  --font-bevan: 'Bevan', serif;
+  --font-montserrat: 'Montserrat', sans-serif;
+  --font-permanent-marker: 'Permanent Marker', cursive;
+  --font-bricolage-grotesque: 'Bricolage Grotesque', sans-serif;
+  --font-quicksand: 'Quicksand', sans-serif;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: var(--font-montserrat), Arial, Helvetica, sans-serif;
+  font-family: var(--font-quicksand), ui-sans-serif, system-ui, sans-serif;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .font-bevan {
+    font-family: var(--font-bevan), serif;
+  }
+
+  .font-permanent-marker {
+    font-family: var(--font-permanent-marker), cursive;
+  }
+
+  .font-bricolage-grotesque {
+    font-family: var(--font-bricolage-grotesque), sans-serif;
+  }
+
+  .font-quicksand {
+    font-family: var(--font-quicksand), sans-serif;
   }
 }

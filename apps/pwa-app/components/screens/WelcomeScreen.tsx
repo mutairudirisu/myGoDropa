@@ -8,20 +8,20 @@ interface WelcomeScreenProps {
 
 export default function WelcomeScreen({ onNext }: WelcomeScreenProps) {
   return (
-    <div className="h-screen bg-white flex flex-col items-center justify-center p-6 text-center">
+    <div className="h-screen px-4 pt-8">
       <motion.div
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6 }}
-        className="max-w-sm w-full"
+        className=""
       >
         <div className="mb-6">
-          <img
+          {/* <img
             src="/images/GoDropa-Logo.png"
             alt="GoDropa Logo"
-            className="w-16 h-16 object-contain mx-auto mb-4"
-          />
-          <h2 className="text-lg font-bold text-gray-900 ">
+            className="w-20 h-20 object-contain mx-auto mb-4"
+          /> */}
+          <h2 className="text-4xl font-bold text-gray-900">
             Welcome to <span className="text-[#FF6B00]">GoDropa</span>
           </h2>
           <p className="text-[12px] text-gray-600">

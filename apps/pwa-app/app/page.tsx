@@ -63,6 +63,7 @@ export default function Home() {
               setUserRole(role);
               setStep("profile");
             }}
+            onBack={() => setStep("otp")}
           />
         );
       case "profile":
@@ -72,6 +73,7 @@ export default function Home() {
               setUserProfile(profile);
               setStep("notifications");
             }}
+            onBack={() => setStep("role")}
           />
         );
       case "notifications":
