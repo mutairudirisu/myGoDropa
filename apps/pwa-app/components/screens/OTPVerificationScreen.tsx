@@ -1,11 +1,8 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import AuthLayout from "@/components/ui/auth/AuthLayout";
-import AuthHeader from "@/components/ui/auth/AuthHeader";
-import AuthContent from "@/components/ui/auth/AuthContent";
-import AuthButton from "@/components/ui/auth/AuthButton";
-import { ShieldCheck } from "lucide-react";
+import { ArrowLeft, ShieldCheck } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface OTPVerificationScreenProps {
   phoneNumber: string;
@@ -19,7 +16,6 @@ export default function OTPVerificationScreen({
   onBack,
 }: OTPVerificationScreenProps) {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
-  const [isLoading, setIsLoading] = useState(false);
   const inputsRef = useRef<(HTMLInputElement | null)[]>([]);
 
   useEffect(() => {
@@ -49,33 +45,34 @@ export default function OTPVerificationScreen({
     }
   };
 
-  const handleNext = async () => {
-    if (otp.some((d) => !d)) return;
-    setIsLoading(true);
-    await onNext();
-    setIsLoading(false);
-  };
-
   return (
-    <AuthLayout>
-      <AuthHeader onBack={onBack} />
+    <div className="h-[100dvh] flex flex-col overflow-hidden bg-zinc-100">
+      {/* Fixed Back Button */}
+      <div className="shrink-0 flex items-center px-6 py-4">
+        <button onClick={onBack} className="w-fit p-2 bg-white rounded-full flex items-center justify-center gap-2 shadow-sm">
+          <ArrowLeft className="w-6 h-6 text-gray-900" />
+        </button>
+      </div>
 
-      <AuthContent>
-        <div className="flex flex-col items-center gap-8">
-          <div className="w-14 h-14 bg-orange-primary/10 rounded-2xl flex items-center justify-center">
+      {/* Scrollable Middle Content */}
+      <div className="flex-1 overflow-y-auto overscroll-contain px-6">
+        <motion.div
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          className="flex flex-col"
+        >
+          <div className="w-14 h-14 bg-orange-primary/10 rounded-2xl flex items-center justify-center mb-6">
             <ShieldCheck className="w-7 h-7 text-orange-primary" />
           </div>
 
-          <div className="text-center space-y-2">
-            <h2 className="text-3xl font-bold text-gray-900 tracking-tight leading-tight">
-              Enter the 6-digit code
-            </h2>
-            <p className="text-base text-gray-500 leading-relaxed">
-              We sent you a code to <span className="font-medium">+234 {phoneNumber}</span>
-            </p>
-          </div>
+          <h2 className="text-lg font-semibold text-gray-900 mb-2">
+            Enter the 6-digit code
+          </h2>
+          <p className="text-gray-600 mb-8 text-sm">
+            We sent you a code to <span className="font-medium">+234 {phoneNumber}</span>
+          </p>
 
-          <div className="flex gap-2 justify-center">
+          <div className="flex gap-2 justify-center mb-8">
             {otp.map((digit, index) => (
               <input
                 key={index}
@@ -94,15 +91,23 @@ export default function OTPVerificationScreen({
             ))}
           </div>
 
-          <button className="text-sm text-orange-primary font-semibold">
+          <button className="text-[12px] text-orange-primary font-semibold mb-4">
             Resend code in 00:25
           </button>
-        </div>
-      </AuthContent>
+        </motion.div>
+      </div>
 
-      <AuthButton onClick={handleNext} disabled={otp.some((d) => !d)} loading={isLoading}>
-        Continue
-      </AuthButton>
-    </AuthLayout>
+      {/* Fixed Continue Button */}
+      <div className="shrink-0 px-6 py-4 bg-zinc-100">
+        <button
+          onClick={onNext}
+          disabled={otp.some((d) => !d)}
+          className="w-full py-4 bg-orange-primary text-sm text-white rounded-full font-semibold hover:bg-orange-dark transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Continue
+          <ArrowLeft className="w-5 h-5 rotate-180" />
+        </button>
+      </div>
+    </div>
   );
 }
