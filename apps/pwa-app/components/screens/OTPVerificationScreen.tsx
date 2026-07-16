@@ -61,9 +61,6 @@ export default function OTPVerificationScreen({
           animate={{ y: 0, opacity: 1 }}
           className="flex flex-col"
         >
-          <div className="w-14 h-14 bg-orange-primary/10 rounded-2xl flex items-center justify-center mb-6">
-            <ShieldCheck className="w-7 h-7 text-orange-primary" />
-          </div>
 
           <h2 className="text-lg font-semibold text-gray-900 mb-2">
             Enter the 6-digit code
