@@ -8,23 +8,23 @@ interface WelcomeScreenProps {
 
 export default function WelcomeScreen({ onNext }: WelcomeScreenProps) {
   return (
-    <div className="min-h-[100svh] overflow-y-auto">
+    <div className="h-screen bg-white flex flex-col items-center justify-center p-6 text-center">
       <motion.div
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6 }}
-        className="mx-auto flex flex-col justify-between py-6 min-h-[100svh] max-w-md bg-white px-4"
+        className="max-w-sm w-full"
       >
-        <div className="">
-          {/* <img
+        <div className="mb-6">
+          <img
             src="/images/GoDropa-Logo.png"
             alt="GoDropa Logo"
-            className="w-20 h-20 object-contain mx-auto mb-4"
-          /> */}
-          <h2 className="text-5xl font-extrabold tracking-tighter text-gray-900">
+            className="w-16 h-16 object-contain mx-auto mb-4"
+          />
+          <h2 className="text-4xl font-extrabold text-gray-900 font-bricolage-grotesque">
             Welcome to <span className="text-[#FF6B00]">GoDropa</span>
           </h2>
-          <p className="text-[16px] text-gray-600">
+          <p className="text-[12px] text-gray-600">
             Move anything, anywhere, anytime.
           </p>
         </div>
@@ -71,8 +71,8 @@ export default function WelcomeScreen({ onNext }: WelcomeScreenProps) {
             Continue with Apple
           </button>
 
-          <p className="text-xs text-gray-400 px-12 text-center mt-6">
-            By continuing, you agree to our <span className="text-[#FF6B00]">Terms & Privacy Policy</span>
+          <p className="text-xs text-gray-400 mt-6">
+            By continuing, you agree to our Terms & Privacy Policy
           </p>
         </div>
       </motion.div>

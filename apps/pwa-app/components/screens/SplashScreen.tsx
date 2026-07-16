@@ -60,7 +60,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="text-[8px] pl-12 font-medium text-white text-center tracking-wide"
+          className="text-[8px] pl-12 font-medium text-white text-center tracking-wide font-permanent-marker"
         >
           By GIGS Labs
         </motion.h2>
