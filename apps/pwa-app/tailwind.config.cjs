@@ -19,6 +19,7 @@ module.exports = {
         "permanent-marker": ["var(--font-permanent-marker)", "cursive"],
         "bricolage-grotesque": ["var(--font-bricolage-grotesque)", "sans-serif"],
         montserrat: ["var(--font-montserrat)", "ui-sans-serif", "system-ui", "sans-serif"],
+        "sk-seren": ["var(--font-sk-seren)", "ui-sans-serif", "system-ui", "sans-serif"],
       },
     },
   },

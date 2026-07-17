@@ -21,7 +21,7 @@ export default function WelcomeScreen({ onNext }: WelcomeScreenProps) {
             alt="GoDropa Logo"
             className="w-16 h-16 object-contain mx-auto mb-4"
           />
-          <h2 className="text-4xl font-extrabold text-gray-900 font-bricolage-grotesque">
+          <h2 className="text-4xl font-extrabold text-gray-900">
             Welcome to <span className="text-[#FF6B00]">GoDropa</span>
           </h2>
           <p className="text-[12px] text-gray-600">
