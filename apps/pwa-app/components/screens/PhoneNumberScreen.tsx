@@ -13,21 +13,24 @@ export default function PhoneNumberScreen({ onNext, onBack }: PhoneNumberScreenP
   const [phone, setPhone] = useState("");
 
   return (
-    <div className="min-h-screen bg-zinc-100 flex flex-col p-6">
-      <button onClick={onBack} className="w-fit p-2 mb-6 bg-white rounded-full flex items-center justify-center gap-2 shadow-sm">
-        <ArrowLeft className="w-6 h-6 text-gray-900" />
-      </button>
+    <div className="min-h-screen bg-white flex flex-col p-4">
+      <div className=" fixed w-full">
+          <button onClick={onBack} className=" h-12 w-12 mb-6 bg-zinc-100 rounded-full flex items-center justify-center gap-2 shadow-md">
+            <ArrowLeft className="w-6 h-6 text-gray-900" />
+          </button> 
+      </div>
+      
 
       <motion.div
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="flex-1 flex flex-col"
+        className="flex-1 flex flex-col mt-16"
       >
         {/* <div className="w-14 h-14 bg-orange-primary/10 rounded-2xl flex items-center justify-center mb-6">
           <Smartphone className="w-7 h-7 text-orange-primary" />
         </div> */}
 
-        <h2 className="text-lg font-semibold text-gray-900 mb-2">
+        <h2 className="text-2xl font-normal  text-gray-900 mb-2">
           What's your phone number?
         </h2>
         <p className="text-gray-600 text-sm mb-8">
@@ -46,7 +49,7 @@ export default function PhoneNumberScreen({ onNext, onBack }: PhoneNumberScreenP
               setPhone(digits);
             }}
             placeholder="801 234 5678"
-            className="flex-1 text-gray-900 text-sm bg-zinc-100 focus:outline-none"
+            className="flex-1 text-gray-900 text-sm focus:outline-none"
             autoFocus
           />
         </div>
